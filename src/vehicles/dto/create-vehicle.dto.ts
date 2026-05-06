@@ -2,14 +2,17 @@ import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class CreateVehicleDto {
   @IsString()
-  brand: string;
+  brand!: string;
 
   @IsString()
-  model: string;
+  model!: string;
 
   @IsNumber()
-  year: number; 
+  year!: number; 
+
+  @IsString()
+  licensePlate!: string;
 
   @IsBoolean()
-  available: boolean;
+  available!: boolean;
 }
