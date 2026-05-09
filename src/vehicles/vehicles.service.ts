@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Vehicle } from './entities/vehicle.entity';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { Repository } from 'typeorm';
+import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 
 @Injectable()
 export class VehiclesService {
@@ -35,7 +36,7 @@ export class VehiclesService {
         return this.vehicleRepository.findOneBy({ id });
     }
 
-    async update(id: number, updateVehicleDto: CreateVehicleDto) {
+    async update(id: number, updateVehicleDto: UpdateVehicleDto) {
         const vehicle = await this.findOne(id);
         if (!vehicle) {
             return {

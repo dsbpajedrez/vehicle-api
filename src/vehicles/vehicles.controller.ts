@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { Vehicle } from './entities/vehicle.entity';
 import { VehiclesService } from './vehicles.service';
+import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 
 @Controller('vehicles')
 export class VehiclesController {
@@ -52,7 +53,6 @@ export class VehiclesController {
 
     @Get('model/:model')
     async findByModel(@Param('model') model: string) {
-        console.log(model);
         
         const vehicle = await this.vehiclesService.findByModel(model);
         if (vehicle === null) {
@@ -67,6 +67,8 @@ export class VehiclesController {
             data: vehicle,
         }
     }
+
+    // Es util esto?
     @Get('available/:available')
     async findByState(@Param('available') available: boolean) {
         const vehicle = await this.vehiclesService.findByState(available);
@@ -82,8 +84,25 @@ export class VehiclesController {
             data: vehicle,
         }
     }
+
+    @Get(':id')
+    async findOne(@Param('id', ParseIntPipe) id: number) {
+        const vehicle = await this.vehiclesService.findOne(id);
+        if (vehicle === null) {
+            return {
+                statusCode: 404,
+                message: 'Vehicle not found',
+            }
+        }
+        return {
+            statusCode: 200,
+            message: 'Vehicle retrieved successfully',
+            data: vehicle,
+        }
+    }
+
     @Put(':id')
-    async update(@Param('id', ParseIntPipe) id: number, @Body() updateVehicleDto: Vehicle) {
+    async update(@Param('id', ParseIntPipe) id: number, @Body() updateVehicleDto: UpdateVehicleDto) {
         const vehicleToUpdate = await this.vehiclesService.findOne(id);
         if (vehicleToUpdate === null) {
             return {   
