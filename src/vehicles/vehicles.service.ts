@@ -22,18 +22,18 @@ export class VehiclesService {
     }
 
     async findByBrand(brand: string) {
-        return this.vehicleRepository.findOneBy({ brand: brand });
+        return this.vehicleRepository.findBy({ brand: brand });
     }
 
     async findByModel(model: string) {
-    return this.vehicleRepository.findOneBy({ model: model });
+    return this.vehicleRepository.findBy({ model: model });
     }
 
     async findByState(available: boolean) {
-    return this.vehicleRepository.findOneBy({ available: available });
+    return this.vehicleRepository.findBy({ available: available });
     }
-      async findOne(id: number) {
-        return this.vehicleRepository.findOneBy({ id });
+    async findOne(id: number) {
+    return this.vehicleRepository.findOneBy({ id });
     }
 
     async update(id: number, updateVehicleDto: UpdateVehicleDto) {

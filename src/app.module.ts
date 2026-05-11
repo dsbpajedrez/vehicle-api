@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConsulService } from './consul.service';
 
 @Module({
   imports: [
@@ -24,6 +25,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     VehiclesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ConsulService],
 })
 export class AppModule {}
