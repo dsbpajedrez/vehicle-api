@@ -6,22 +6,25 @@ const Consul = require('consul');
 export class ConsulService
   implements OnModuleInit
 {
+  private readonly serviceName = 'alquiler-vehiculos';
+  private readonly serviceHost = process.env.SERVICE_HOST || 'localhost';
+  private readonly servicePort = parseInt(process.env.SERVICE_PORT || process.env.PORT || '3001', 10);
+
   private consul = new Consul({
-    host: 'consul', // Cambia 'consul' por 'localhost' si estás ejecutando el servicio localmente
-    // host: 'localhost',
-    port: 8500,
+    host: process.env.CONSUL_HOST || 'localhost',
+    port: parseInt(process.env.CONSUL_PORT || '8500', 10),
   });
 
   async onModuleInit() {
 
     await this.consul.agent.service.register({
-      name: 'alquiler-vehiculos',
-      address: 'alquiler-vehiculos',
-      port: 3001,
+      name: this.serviceName,
+      address: this.serviceHost,
+      port: this.servicePort,
 
       check: {
-        name: 'alquiler-vehiculos-health',
-        http: 'http://alquiler-vehiculos:3001',
+        name: `${this.serviceName}-health`,
+        http: `http://${this.serviceHost}:${this.servicePort}`,
         interval: '10s',
         timeout: '5s',
       },
