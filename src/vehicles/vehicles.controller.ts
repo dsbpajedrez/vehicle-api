@@ -3,7 +3,7 @@ import { Vehicle } from './entities/vehicle.entity';
 import { VehiclesService } from './vehicles.service';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 
-@Controller('vehicles')
+@Controller()
 export class VehiclesController {
     constructor(
         private readonly vehiclesService: VehiclesService
@@ -25,7 +25,7 @@ export class VehiclesController {
         }
     }
 
-    @Get()
+    @Get("get-all")
     async findAll() {
         const vehicles = await this.vehiclesService.findAll();
         return {
