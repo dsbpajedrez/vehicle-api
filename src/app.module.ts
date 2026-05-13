@@ -25,7 +25,7 @@ import { ConsulService } from './consul.service';
     VehiclesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, /*ConsulService*/],
+  providers: [AppService, ConsulService],
 })
 export class AppModule {}
   
