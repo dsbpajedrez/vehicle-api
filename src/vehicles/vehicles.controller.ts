@@ -85,7 +85,7 @@ export class VehiclesController {
         }
     }
 
-    @Get(':id')
+    @Get('vehicle/:id')
     async findOne(@Param('id', ParseIntPipe) id: number) {
         const vehicle = await this.vehiclesService.findOne(id);
         if (vehicle === null) {
